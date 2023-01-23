@@ -24,6 +24,15 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Kelola User
+                                </NavLink>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Kelola Nilai
+                                </NavLink>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Rekapan
+                                </NavLink>
                             </div>
                         </div>
 

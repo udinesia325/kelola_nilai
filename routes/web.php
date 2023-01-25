@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Foundation\Application;
@@ -40,6 +41,11 @@ Route::middleware('auth')->group(function () {
     //untuk siswa
     Route::get('/siswa', [SiswaController::class, "index"])->name("siswa");
     Route::post('/siswa/import', [SiswaController::class, "import"])->name("siswa.import");
+
+    // untuk nilai
+    Route::get("/nilai",[NilaiController::class,"index"])->name("nilai");
+    Route::get("/nilai/create",[NilaiController::class,"create"])->name("nilai.create");
+    Route::post("/nilai/store",[NilaiController::class,"store"])->name("nilai.store");
 });
 
 require __DIR__ . '/auth.php';

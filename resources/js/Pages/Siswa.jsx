@@ -20,7 +20,12 @@ function Siswa(props) {
             <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white">Import Siswa</label>
 
             <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal">
+            {flash.message ? <div className="alert alert-success shadow-lg mb-5">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{flash.message}</span>
+                </div>
+            </div> : <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Masukkan File Excel</h3>
                     <div className="py-4">
@@ -33,7 +38,7 @@ function Siswa(props) {
                         <label htmlFor="my-modal" className="btn btn-sm">Tutup</label>
                     </div>
                 </div>
-            </div>
+            </div>}
             {/* end modal */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -66,13 +71,15 @@ function Siswa(props) {
 
                 </table>
             </div>
-            <div className="btn-group block mx-auto my-4 font-bold">
+            {/* jika data kosong maka jangan tampilkan paginasi */}
+            {siswa.total != 0 &&
+                <div className="flex flex-row mt-3 mb-5 justify-center font-bold text-white">
+                    {siswa.prev_page_url && <Link href={siswa.prev_page_url} className="py-2 px-4 bg-indigo-500 hover:bg-indigo-400">Prev</Link>}
+                    <button className="py-2 px-4 bg-indigo-500 hover:bg-indigo-400">Page {siswa.current_page}</button>
+                    {siswa.next_page_url && <Link href={siswa.next_page_url} className="py-2 px-4 bg-indigo-500 hover:bg-indigo-400" >Next</Link>}
 
-                {siswa.prev_page_url && <Link href={siswa.prev_page_url} className="btn btn-info">Prev</Link>}
-                <button className="btn btn-info">Page {siswa.current_page}</button>
-                {siswa.next_page_url && <Link href={siswa.next_page_url} className="btn btn-info" >Next</Link>}
-
-            </div>
+                </div>
+            }
         </Layout>
     )
 }

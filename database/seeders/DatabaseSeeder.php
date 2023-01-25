@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\JenisNilai;
 use App\Models\Kelas;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +43,17 @@ class DatabaseSeeder extends Seeder
         ])->map(function($data){
             Kelas::create([
                 "nama_kelas" => $data
+            ]);
+        });
+        collect([
+            "Harian",
+            "Ulangan",
+            "Pilihan Ganda",
+            "Essay",
+            "Tambahan",
+        ])->map(function($data){
+            JenisNilai::create([
+                "nama_nilai" => $data
             ]);
         });
         // \App\Models\User::factory()->create([

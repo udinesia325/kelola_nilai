@@ -23,7 +23,7 @@ function Layout({ children }) {
                     <NavLink href={route('siswa')} active={route().current('siswa')}>
                         <span><i className="fa-solid fa-users-gear mr-5"></i>Kelola Siswa</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                    <NavLink href={route('nilai')} active={route().current('nilai')}>
                         <span><i className="fa-solid fa-book-open mr-5"></i>Kelola Nilai</span>
                     </NavLink>
                     <NavLink href={route('dashboard')} active={route().current('dashboard')}>

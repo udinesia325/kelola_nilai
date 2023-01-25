@@ -21,5 +21,7 @@ class SiswaController extends Controller
     {
         $siswaImportRequest->validated();
         $siswaService->import($siswaImportRequest->file("file"));
+        return to_route("siswa")->with("message", "Siswa Berhasil Ditambahkan !");
+
     }
 }

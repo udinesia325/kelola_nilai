@@ -1,13 +1,41 @@
 import Layout from '@/Layouts/Layout';
+import { useForm } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 
 function Index(props) {
     const { kelas, jenis, nilai } = props.data
-    console.log(nilai);
-    // new Date('2023-01-25 04:07:52').toLocaleString('id', {weekday:'long'})
+    const [show, setShow] = useState(false)
+    const { data, setData, post,get } = useForm({
+        "mapel": null,
+        "created_at": null,
+        "user_id": props.auth.user.id,
+        "kelas": null,
+        "jenis": null
+    })
     function formatDay(date) {
         return new Date(date).toLocaleString('id', { weekday: 'long' })
     }
+    function submit(dataCard, event) {
+        // atur body request berdasarkan bind data dari tombol
+        setData({
+            "mapel": dataCard.mapel,
+            "kelas": dataCard.kelas,
+            "jenis": dataCard.jenis,
+            "created_at": dataCard.created_at,
+            "user_id": props.auth.user.id
+        });
+        // set kondisi agar siap di update
+        setShow(true)
+    }
+    useEffect(() => {
+        // update jika sudah siap
+        if (show) {
+            get("/nilai/show")
+        }
+    }, [show])
+
+
     return (
         <Layout>
             {/* The button to open modal */}
@@ -54,13 +82,13 @@ function Index(props) {
             </div>
             <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
                 {nilai.map((n, _i) => (
-                    <div key={_i} className="card w-64 bg-base-100 shadow-xl flex-auto">
+                    <div key={_i} className="card w-64 max-w-xs bg-base-100 shadow-xl flex-auto">
                         <div className="card-body">
-                            <h2 className="card-title">{n.mapel}</h2>
+                            <h2 className="card-title"><span className='font-bold'> {n.nama_kelas} </span>{n.mapel}</h2>
                             <p>Nilai : {n.nama_nilai}</p>
                             <p className='text-slate-700'>Tanggal : {formatDay(n.created_at)} {n.created_at}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-sm btn-primary">Lihat</button>
+                                <button className="btn btn-sm btn-primary" onClick={submit.bind(this, n)}>Lihat</button>
                             </div>
                         </div>
                     </div>

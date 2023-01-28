@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Contracts\NilaiServiceInterface;
 use App\Http\Requests\CreateNilaiRequest;
+use App\Http\Requests\ShowNilaiRequest;
 use App\Http\Requests\StoreNilaiRequest;
+use App\Http\Requests\UpdateNilaiRequest;
 use App\Jobs\StoreNilaiJob;
 use App\Models\JenisNilai;
 use App\Models\Kelas;
@@ -23,7 +25,7 @@ class NilaiController extends Controller
     }
     public function index()
     {
-        return Inertia::render("Nilai/Index",[
+        return Inertia::render("Nilai/Index", [
             "data" => $this->nilaiRepository->getNilaiByUser()
         ]);
     }
@@ -44,5 +46,25 @@ class NilaiController extends Controller
         $storeNilaiRequest->validated();
         $nilaiServiceInterface->store($storeNilaiRequest->input("data_nilai"));
         return to_route("nilai");
+    }
+    public function show(ShowNilaiRequest $showNilaiRequest)
+    {
+        $showNilaiRequest->validated();
+        return Inertia::render("Nilai/Show", [
+            "data" => $this->nilaiRepository->showSavedNilai($showNilaiRequest->input())
+        ]);
+    }
+    public function edit(ShowNilaiRequest $showNilaiRequest)
+    {
+        $showNilaiRequest->validated();
+        return Inertia::render("Nilai/Edit", [
+            "siswa" => $this->nilaiRepository->showSavedNilai($showNilaiRequest->input())
+        ]);
+    }
+    public function update(UpdateNilaiRequest $updateNilaiRequest, NilaiServiceInterface $nilaiServiceInterface)
+    {
+        $updateNilaiRequest->validated();
+        $nilaiServiceInterface->update($updateNilaiRequest->input("data_nilai"));
+        return redirect($updateNilaiRequest->input("back_url"))->with("message", "Nilai Berhasil di perbarui !");
     }
 }

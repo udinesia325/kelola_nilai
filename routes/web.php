@@ -43,9 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/siswa/import', [SiswaController::class, "import"])->name("siswa.import");
 
     // untuk nilai
-    Route::get("/nilai",[NilaiController::class,"index"])->name("nilai");
-    Route::get("/nilai/create",[NilaiController::class,"create"])->name("nilai.create");
-    Route::post("/nilai/store",[NilaiController::class,"store"])->name("nilai.store");
+    Route::get("/nilai", [NilaiController::class, "index"])->name("nilai");
+    Route::get("/nilai/create", [NilaiController::class, "create"])->name("nilai.create");
+    Route::post("/nilai/store", [NilaiController::class, "store"])->name("nilai.store");
+    Route::get("/nilai/show", [NilaiController::class, "show"])->name("nilai.show");
+    Route::get("/nilai/edit", [NilaiController::class, "edit"])->name("nilai.edit");
+    Route::put("/nilai/update", [NilaiController::class, "update"])->name("nilai.update");
 });
 
 require __DIR__ . '/auth.php';

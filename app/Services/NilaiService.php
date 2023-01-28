@@ -21,4 +21,11 @@ class NilaiService implements NilaiServiceInterface
             ]);
         }
     }
+    public function update(array $data_nilai): void
+    {
+        $ids = collect($data_nilai)->map(fn ($data) => $data["siswa_id"]);
+        foreach ($data_nilai as $data) {
+            Nilai::where("id", $data["id"])->update(["nilai" => $data["nilai"]]);
+        }
+    }
 }

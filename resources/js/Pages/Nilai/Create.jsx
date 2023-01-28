@@ -56,7 +56,7 @@ function Create(props) {
                       <label className="label">
                         <span className="label-text">Masukkan Nilai</span>
                       </label>
-                      <input type="number" placeholder="Ketik Disini" className="input input-sm input-bordered w-full max-w-xs" value={s.nilai} onChange={handleSetData.bind(this, s.siswa_id)} />
+                      <input type="number" min="0" max="100" placeholder="Ketik Disini" className="input input-sm input-bordered w-full max-w-xs" value={s.nilai} onChange={handleSetData.bind(this, s.siswa_id)} />
 
                     </div>
                   </td>

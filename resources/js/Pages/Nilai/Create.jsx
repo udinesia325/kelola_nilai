@@ -1,5 +1,5 @@
 import Layout from '@/Layouts/Layout'
-import { useForm } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
 import React from 'react'
 
 function Create(props) {
@@ -31,11 +31,16 @@ function Create(props) {
       return { ...data }
     })])
   }
-  console.log(props);
+
   return (
     <Layout>
+
+      <h1 className='font-semibold'>Mapel : {new URLSearchParams(window.location.search).get("mapel")}</h1>
       <form onSubmit={submit}>
-        <button className="btn btn-sm btn-active block ml-auto mr-4 my-3">Simpan</button>
+        <div className="flex flex-row justify-end gap-2 mb-4">
+          <Link className='btn btn-sm btn-outline btn-ghost' href={route("nilai")}> <i className="fa-solid fa-arrow-left"></i></Link>
+          <button className="btn btn-sm btn-success btn-active block text-white font-bold"><i className="fa-regular fa-floppy-disk mr-3"></i> Simpan</button>
+        </div>
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">
             <thead>

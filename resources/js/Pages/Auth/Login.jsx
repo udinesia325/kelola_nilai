@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
+import LoginLayout from '@/Layouts/LoginLayout';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -31,12 +32,12 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
+        <LoginLayout>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="h-[400px] w-[400px]  m-auto px-5 pt-8 ">
                 <div>
                     <InputLabel forInput="email" value="Email" />
 
@@ -71,7 +72,8 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="block mt-4">
-                    <label className="flex items-center">
+                <span className="ml-2 text-sm text-gray-600">Gunakan kredensial dari operator Erapor</span>
+                    <label className="flex items-center mt-4">
                         <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
                         <span className="ml-2 text-sm text-gray-600">Remember me</span>
                     </label>
@@ -88,10 +90,10 @@ export default function Login({ status, canResetPassword }) {
                     )} */}
 
                     <PrimaryButton className="ml-4" processing={processing}>
-                        Log in
+                        {processing ? "Memuat" : "Masuk"}
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </LoginLayout>
     );
 }

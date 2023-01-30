@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\NilaiRepositoryInterface;
 use App\Contracts\NilaiServiceInterface;
 use App\Http\Requests\CreateNilaiRequest;
 use App\Http\Requests\ShowNilaiRequest;
@@ -45,14 +46,16 @@ class NilaiController extends Controller
     {
         $storeNilaiRequest->validated();
         $nilaiServiceInterface->store($storeNilaiRequest->input("data_nilai"));
-        return to_route("nilai");
+        return to_route("nilai")->with("message", "Nilai baru ditambahkan !");
     }
     public function show(ShowNilaiRequest $showNilaiRequest)
     {
         $showNilaiRequest->validated();
-        return Inertia::render("Nilai/Show", [
-            "data" => $this->nilaiRepository->showSavedNilai($showNilaiRequest->input())
-        ]);
+        $data["data"] = $this->nilaiRepository->showSavedNilai($showNilaiRequest->input());
+        if (count($data["data"]) == 0) {
+            return to_route("nilai");
+        }
+        return Inertia::render("Nilai/Show", $data);
     }
     public function edit(ShowNilaiRequest $showNilaiRequest)
     {
@@ -66,5 +69,10 @@ class NilaiController extends Controller
         $updateNilaiRequest->validated();
         $nilaiServiceInterface->update($updateNilaiRequest->input("data_nilai"));
         return redirect($updateNilaiRequest->input("back_url"))->with("message", "Nilai Berhasil di perbarui !");
+    }
+    public function delete(Request $request)
+    {
+        $this->nilaiRepository->delete($request->input());
+        return to_route("nilai")->with("message", "Nilai berhasil di hapus");
     }
 }

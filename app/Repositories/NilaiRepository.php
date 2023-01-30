@@ -45,4 +45,18 @@ class NilaiRepository implements NilaiRepositoryInterface
             ->where(DB::raw("DAY(n.created_at)"), date("d", strtotime($input["created_at"]))) // ambil yang dalam satu hari itu
             ->get(["n.*", "siswas.nama_siswa as nama_siswa", "kelas.nama_kelas as kelas", "jn.nama_nilai as jenis"]);
     }
+    public function delete(array $input): void
+    {
+        // dd($data_nilai);
+        DB::table("nilais", "n")
+            ->join("siswas as s", "s.id", "=", "n.siswa_id")
+            ->join("kelas as k", "k.id", "=", "s.kelas_id")
+            ->join("jenis_nilais as jn", "jn.id", "=", "n.nilai_id")
+            ->where("user_id", auth()->user()->id) //berdasarkan yang sedang login
+            ->where("mapel", $input["mapel"]) // dan mapel dari inputan useForm
+            ->where("k.id", $input["kelas"]) // beserta kelasnya juga
+            ->where("jn.id", $input["jenis"]) //sertakan relasi jenis nilai 
+            ->where(DB::raw("DAY(n.created_at)"), date("d", strtotime($input["created_at"]))) // ambil yang dalam satu hari itu
+            ->delete();
+    }
 }

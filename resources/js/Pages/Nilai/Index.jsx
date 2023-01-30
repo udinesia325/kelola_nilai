@@ -1,12 +1,16 @@
+import Alert from '@/Components/Alert';
+import mapel from '@/constans/mapel';
 import Layout from '@/Layouts/Layout';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 
 function Index(props) {
     const { kelas, jenis, nilai } = props.data
     const [show, setShow] = useState(false)
-    const { data, setData, post,get } = useForm({
+    const [modalDelete, setModalDelete] = useState(false)
+    const [dataDelete, setDataDelete] = useState({})
+    const { data, setData, post, get } = useForm({
         "mapel": null,
         "created_at": null,
         "user_id": props.auth.user.id,
@@ -34,13 +38,34 @@ function Index(props) {
             get("/nilai/show")
         }
     }, [show])
-
+    function deleteNilai(data, event) {
+        setModalDelete(true)
+        setDataDelete(data)
+    }
+    function confirmDelete() {
+        router.delete(route("nilai.delete"), { data: dataDelete })
+        setModalDelete(false)
+    }
 
     return (
         <Layout>
-            {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-primary btn-sm">Buat Nilai</label>
+            {props.flash.message ? <Alert>{props.flash.message}</Alert> : null}
 
+            {/* The button to open modal */}
+            <label htmlFor="my-modal" className="btn btn-primary btn-sm"><i className="fa-regular fa-pen-to-square mr-4"></i>Buat</label>
+            {/* modal delete */}
+
+            {/* Put this part before </body> tag */}
+            <div className={`modal ${modalDelete ? "modal-open" : ""}`}>
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Konfirmasi !</h3>
+                    <p className="py-4">Apakah anda yakin ingin menghapus ?</p>
+                    <div className="modal-action">
+                        <label className="btn btn-sm btn-success " onClick={() => setModalDelete(false)}>Batal</label>
+                        <label className="btn btn-sm btn-error " onClick={confirmDelete}>Ya</label>
+                    </div>
+                </div>
+            </div>
 
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className="modal">
@@ -51,7 +76,12 @@ function Index(props) {
                             <label className="label">
                                 <span className="label-text">Nama Mapel</span>
                             </label>
-                            <input type="text" required name='mapel' className="input input-bordered w-full max-w-xs" />
+                            <input type="text" list='mapel' required name='mapel' className="input input-bordered w-full max-w-xs" />
+                            <datalist id="mapel">
+                                {mapel.map((m, _i) => (
+                                    <option key={_i} value={m} />
+                                ))}
+                            </datalist>
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
                                     <span className="label-text">Kelas</span>
@@ -73,14 +103,16 @@ function Index(props) {
                                 </select>
                             </div>
                         </div>
-                        <button className="btn-primary px-8 py-2 my-3 rounded-md">Buat</button>
+                        <button className="btn-primary btn-sm px-4 my-3 rounded-md">Kirim</button>
                     </form>
                     <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn btn-outline btn-error">Batal</label>
+                        <label htmlFor="my-modal" className="btn btn-outline btn-error btn-sm">Tutup</label>
                     </div>
                 </div>
             </div>
+            {/* card nilai */}
             <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
+                {nilai.length == 0 && <h1 className='mx-auto text-3xl mt-4'>Data penilaian masih kosong</h1>}
                 {nilai.map((n, _i) => (
                     <div key={_i} className="card w-64 max-w-xs bg-base-100 shadow-xl flex-auto">
                         <div className="card-body">
@@ -88,7 +120,8 @@ function Index(props) {
                             <p>Nilai : {n.nama_nilai}</p>
                             <p className='text-slate-700'>Tanggal : {formatDay(n.created_at)} {n.created_at}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-sm btn-primary" onClick={submit.bind(this, n)}>Lihat</button>
+                                <button className="btn btn-sm btn-error" onClick={deleteNilai.bind(this, n)}><i className="fa-solid fa-trash text-white"></i></button>
+                                <button className="btn btn-sm btn-primary" onClick={submit.bind(this, n)}><i className="fa-solid fa-eye"></i></button>
                             </div>
                         </div>
                     </div>

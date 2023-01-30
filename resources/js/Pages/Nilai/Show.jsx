@@ -5,9 +5,7 @@ import { Link } from '@inertiajs/react';
 import React from 'react'
 
 function Show(props) {
-    // console.log(props);
     const { auth, data, flash } = props
-    console.log(props);
     const editUrl = new URL(window.location).href.replace("nilai/show", "nilai/edit")
     return (
         <Layout>
@@ -19,8 +17,9 @@ function Show(props) {
                         <h1 className='text-slate-700'>Jenis : {data[0].jenis}</h1>
 
                     </div>
-                    <div className="right">
-                        <Link className='btn btn-sm btn-info' href={editUrl}> Edit</Link>
+                    <div className="right flex items-center gap-3">
+                        <Link className='btn btn-sm btn-outline btn-ghost' href={route("nilai")}> <i className="fa-solid fa-arrow-left"></i></Link>
+                        <Link className='btn btn-sm btn-info text-white font-semibold hover:text-slate-600' href={editUrl}><i className="fa-solid fa-file-pen mr-3"></i> Edit</Link>
                     </div>
                 </div>
                 {flash.message ? <Alert>{flash.message}</Alert> : null}

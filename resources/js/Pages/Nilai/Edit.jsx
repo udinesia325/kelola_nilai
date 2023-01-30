@@ -4,10 +4,9 @@ import { Link, useForm } from '@inertiajs/react';
 import React from 'react'
 
 function Show(props) {
-    // console.log(props);
     const { auth, siswa, flash } = props
     const showUrl = new URL(window.location).href.replace("nilai/edit", "nilai/show")
-    console.log(props);
+    
     const { data, setData, put } = useForm({
         "data_nilai": [...siswa.map(s => {
             return {
@@ -43,9 +42,9 @@ function Show(props) {
                             <h1 className='text-slate-700'>Jenis : {siswa[0].jenis}</h1>
 
                         </div>
-                        <div className="right">
-                            <Link className='btn btn-sm btn-warning font-semibold text-white mr-3' href={showUrl}> Kembali</Link>
-                            <button className='btn btn-sm btn-info font-semibold text-white'> Simpan</button>
+                        <div className="right my-auto">
+                            <Link className='btn btn-sm btn-outline btn-ghost mr-3' href={showUrl}><i className="fa-solid fa-arrow-left"></i> </Link>
+                            <button className='btn btn-sm btn-info font-semibold text-white'><i className="fa-regular fa-floppy-disk mr-3"></i> Simpan</button>
                         </div>
                     </div>
                     <table className="table table-zebra w-full max-w-4xl mt-3">

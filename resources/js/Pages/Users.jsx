@@ -7,7 +7,7 @@ export default function Users(props) {
     const { data, setData, post, progress, processing, } = useForm({
         file: null
     })
-    console.log(props);
+    // console.log(props);
     function submit(e) {
         e.preventDefault()
         post('/users/import')
@@ -20,7 +20,7 @@ export default function Users(props) {
 
             {/* start modal */}
             {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white">Import User</label>
+            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> User</label>
             <input type="checkbox" id="my-modal" className="modal-toggle" />
 
             {/* jika ada flash message maka tampilkan alert dan hilangkan modal */}
@@ -35,7 +35,7 @@ export default function Users(props) {
                     <div className="py-4">
                         <form className='my-8 flex flex-row justify-center items-center gap-2' onSubmit={submit}>
                             <input type="file" accept='xls, xlsx' onChange={e => setData('file', e.target.files[0])} className="file-input file-input-bordered file-input-success file-input-sm w-full max-w-xs" />
-                            <button className="btn btn-sm btn-success w-[75px]" disabled={processing} type='submit' htmlFor="my-modal">Import</button>
+                            <button className="btn btn-sm btn-success w-[75px]  text-white font-bold" disabled={processing} type='submit' htmlFor="my-modal">Import</button>
                         </form>
                     </div>
                     <div className="modal-action">
@@ -49,31 +49,26 @@ export default function Users(props) {
                 <progress className="progress progress-success w-56 block mb-4" value={progress.percentage} max="100"></progress>
             }
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">
+                <table className="table table-zebra w-full">
 
                     <thead>
                         <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <th>Name</th>
+                            <th>No</th>
+                            <th>Nama</th>
                             <th>Email</th>
-
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, _i) => (
-                            <Row key={_i} username={user.name} email={user.email} />
+                            <Row key={_i} username={user.name} email={user.email} no={_i+1} />
                         ))
                         }
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
+                            <th>No</th>
+                            <th>Nama</th>
                             <th>Email</th>
                         </tr>
                     </tfoot>
@@ -83,23 +78,13 @@ export default function Users(props) {
         </Layout>
     );
 }
-function Row({ username, email }) {
+function Row({ no, username, email }) {
     return (
-        <tr>
-            <th>
-                <label>
-                    <input type="checkbox" className="checkbox" />
-                </label>
-            </th>
+        <tr className='hover'>
+            <td>{no}</td>
             <td>
-                <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                            <i className="fa-solid fa-user-tie m-auto text-2xl"></i>
-                        </div>
-                    </div>
+                <div className="font-bold">{username}</div>
 
-                </div>
             </td>
             <td>
                 <div>

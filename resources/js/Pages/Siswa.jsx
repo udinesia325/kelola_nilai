@@ -17,7 +17,7 @@ function Siswa(props) {
             <Head title="Dashboard" />
             {/* start modal */}
             {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white">Import Siswa</label>
+            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
 
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             {flash.message ? <div className="alert alert-success shadow-lg mb-5">
@@ -31,7 +31,7 @@ function Siswa(props) {
                     <div className="py-4">
                         <form className='my-8 flex flex-row justify-center items-center gap-2' onSubmit={submit}>
                             <input type="file" accept='xls, xlsx' onChange={e => setData('file', e.target.files[0])} className="file-input file-input-bordered file-input-success file-input-sm w-full max-w-xs" />
-                            <button className="btn btn-sm btn-success w-[75px]" disabled={processing} type='submit' htmlFor="my-modal">Import</button>
+                            <button className="btn btn-sm btn-success w-[75px] text-white font-bold" disabled={processing} type='submit' htmlFor="my-modal">Import</button>
                         </form>
                     </div>
                     <div className="modal-action">

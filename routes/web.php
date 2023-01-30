@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/nilai/show", [NilaiController::class, "show"])->name("nilai.show");
     Route::get("/nilai/edit", [NilaiController::class, "edit"])->name("nilai.edit");
     Route::put("/nilai/update", [NilaiController::class, "update"])->name("nilai.update");
+    Route::delete("/nilai/delete", [NilaiController::class, "delete"])->name("nilai.delete");
 });
 
 require __DIR__ . '/auth.php';

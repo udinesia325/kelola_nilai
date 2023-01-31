@@ -36,8 +36,8 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
             <form onSubmit={submit} className="h-[400px] w-[400px]  m-auto px-5 pt-8 ">
+                <img src="/logo_smk.png" alt="logo smk Babussalam" className='w-12 h-12 block mx-auto' />
                 <div>
                     <InputLabel forInput="email" value="Email" />
 
@@ -72,7 +72,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="block mt-4">
-                <span className="ml-2 text-sm text-gray-600">Gunakan kredensial dari operator Erapor</span>
+                    <span className="ml-2 text-sm text-gray-600">Gunakan kredensial dari operator Erapor</span>
                     <label className="flex items-center mt-4">
                         <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
                         <span className="ml-2 text-sm text-gray-600">Remember me</span>
@@ -89,7 +89,7 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )} */}
 
-                    <PrimaryButton className="ml-4" processing={processing}>
+                    <PrimaryButton className="mx-auto px-10" processing={processing}>
                         {processing ? "Memuat" : "Masuk"}
                     </PrimaryButton>
                 </div>

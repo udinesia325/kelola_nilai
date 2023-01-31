@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekapanController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::get("/nilai/edit", [NilaiController::class, "edit"])->name("nilai.edit");
     Route::put("/nilai/update", [NilaiController::class, "update"])->name("nilai.update");
     Route::delete("/nilai/delete", [NilaiController::class, "delete"])->name("nilai.delete");
+
+
+    // rekapan nilai
+    Route::get("/rekapan", [RekapanController::class, "index"])->name("rekapan");
 });
 
 require __DIR__ . '/auth.php';

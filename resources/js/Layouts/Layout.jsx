@@ -26,7 +26,7 @@ function Layout({ children }) {
                     <NavLink href={route('nilai')} active={route().current('nilai')}>
                         <span><i className="fa-solid fa-book-open mr-5"></i>Kelola Nilai</span>
                     </NavLink>
-                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                    <NavLink href={route('rekapan')} active={route().current('rekapan')}>
                         <span><i className="fa-solid fa-book mr-5"></i>Rekapan Nilai</span>
                     </NavLink>
                     <Link href={route('logout')} method='post' as='button' className='inline-flex items-center px-1 pt-1 border-b-2 border-transparent font-semibold pb-3 text-sm  leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'>

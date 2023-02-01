@@ -1,9 +1,11 @@
+import Alert from '@/Components/Alert';
 import Layout from '@/Layouts/Layout';
 import { Head, useForm } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function Users(props) {
     const { users, flash } = props
-
+    const [modal, setModal] = useState(false)
     const { data, setData, post, progress, processing, } = useForm({
         file: null
     })
@@ -12,6 +14,17 @@ export default function Users(props) {
         e.preventDefault()
         post('/users/import')
     }
+    function handleShow() {
+        setModal(true)
+    }
+    function handleHide() {
+        setModal(false)
+    }
+    useEffect(() => {
+        if (flash.message) {
+            setModal(false)
+        }
+    }, [flash])
 
     return (
         <Layout>
@@ -20,16 +33,12 @@ export default function Users(props) {
 
             {/* start modal */}
             {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> User</label>
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <label className="btn btn-sm btn-success mb-4 font-bold text-white" onClick={handleShow}><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> User</label>
+            <input type="checkbox" className="modal-toggle" />
 
             {/* jika ada flash message maka tampilkan alert dan hilangkan modal */}
-            {flash.message ? <div className="alert alert-success shadow-lg mb-5">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>{flash.message}</span>
-                </div>
-            </div> : <div className="modal">
+
+            <div className={`modal ${modal ? "modal-open" : ""}`}>
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Masukkan File Excel</h3>
                     <div className="py-4">
@@ -39,10 +48,11 @@ export default function Users(props) {
                         </form>
                     </div>
                     <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn btn-sm">Tutup</label>
+                        <label className="btn btn-sm" onClick={handleHide}> Tutup</label>
                     </div>
                 </div>
-            </div>}
+            </div>
+            {flash.message && <Alert>{flash.message}</Alert>}
 
             {/* end modal */}
             {progress &&
@@ -60,7 +70,7 @@ export default function Users(props) {
                     </thead>
                     <tbody>
                         {users.map((user, _i) => (
-                            <Row key={_i} username={user.name} email={user.email} no={_i+1} />
+                            <Row key={_i} username={user.name} email={user.email} no={_i + 1} />
                         ))
                         }
                     </tbody>

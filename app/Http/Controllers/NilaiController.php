@@ -45,8 +45,7 @@ class NilaiController extends Controller
     public function store(StoreNilaiRequest $storeNilaiRequest, NilaiServiceInterface $nilaiServiceInterface)
     {
         $storeNilaiRequest->validated();
-        $nilaiServiceInterface->store($storeNilaiRequest->input("data_nilai"));
-        return to_route("nilai")->with("message", "Nilai baru ditambahkan !");
+        return $nilaiServiceInterface->store($storeNilaiRequest->input("data_nilai"));
     }
     public function show(ShowNilaiRequest $showNilaiRequest)
     {

@@ -21,7 +21,7 @@ class NilaiRepository implements NilaiRepositoryInterface
             ->join("jenis_nilais as jn", "jn.id", "=", "nilais.nilai_id")
             ->join("siswas", "siswas.id", "=", "nilais.siswa_id")
             ->join("kelas", "kelas.id", "=", "siswas.kelas_id")
-            ->groupBy(["kelas.id", "nilais.mapel"])->get([
+            ->groupBy(["kelas.id", "nilais.mapel", DB::raw("MONTH(nilais.created_at)")])->get([
                 "mapel",
                 "kelas.id as kelas",
                 "jn.id as jenis",
@@ -58,5 +58,21 @@ class NilaiRepository implements NilaiRepositoryInterface
             ->where("jn.id", $input["jenis"]) //sertakan relasi jenis nilai 
             ->where(DB::raw("DAY(n.created_at)"), date("d", strtotime($input["created_at"]))) // ambil yang dalam satu hari itu
             ->delete();
+    }
+    public function cekDuplikatDalamSehari(array  $data_nilai): bool
+    {
+        // ambil data pertama sebagai sample
+        $input = $data_nilai[0];
+        $result = DB::table("nilais", "n")
+            ->join("jenis_nilais as jn", "jn.id", "=", "n.nilai_id")
+            ->join("siswas", "siswas.id", "=", "n.siswa_id")
+            ->join("kelas", "kelas.id", "=", "siswas.kelas_id")
+            ->where("user_id", auth()->user()->id) //berdasarkan yang sedang login
+            ->where("mapel", $input["mapel"]) // dan mapel dari inputan useForm
+            ->where("siswas.nama_siswa", $input["nama"]) // beserta nama siswa untuk mewakili kelas
+            ->where("jn.id", $input["nilai_id"]) //sertakan relasi jenis nilai 
+            ->where(DB::raw("DAY(n.created_at)"), date("d", strtotime(now()))) // ambil yang dalam satu hari itu
+            ->get(["n.*", "siswas.nama_siswa as nama_siswa", "kelas.nama_kelas as kelas", "jn.nama_nilai as jenis"]);
+        return (bool) count($result);
     }
 }

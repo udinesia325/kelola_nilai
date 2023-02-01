@@ -6,41 +6,41 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class UserImport implements ToCollection
+class UserImport implements ToModel, WithHeadingRow
 {
 
-    /**
-     * @param Collection $collection
-     */
-    public function collection(Collection $collection)
+
+    public function model(array $row)
     {
-        // pastikan format dokumen telah selesai
-        if (
-            $collection[3][0] != "Username" &&
-            $collection[3][0] != "Email" &&
-            $collection[3][0] != "Status" &&
-            $collection[3][0] != "Password"
-        ) {
-            return redirect(to_route('users'))->with("message", "Format dokumen tidak valid");
-        }
-        $index = 0;
-        foreach ($collection as $key => $value) {
-            if ($key < 4) {
-                continue;
+        // dd($row);
+        // jika kredensial user sama dengan yang ada di env maka jangan di update
+        try {
+            if ($row["email"] == env("DEFAULT_ADMIN_EMAIL")) {
+                return;
             }
-            // dd($value);
-            User::create([
-                'name' => $value[0],
-                'email' => $value[1],
+            return User::updateOrCreate(["email" => $row["email"]], [
+                'name' => $row["username"],
+                'email' => $row["email"],
                 'email_verified_at' => now(),
-                'password' => Hash::make($value[3]),
+                'password' => Hash::make($row["password"]),
                 'remember_token' => Str::random(10),
             ]);
+        } catch (\Exception $e) {
+            Log::info("Format dokumen import user salah");
         }
+    }
+    public function headingRow(): int
+    {
+        return 4;
     }
 }

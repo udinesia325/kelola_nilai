@@ -3,9 +3,12 @@ import React, { useEffect, useRef } from 'react'
 function Alert({ children, type = 'success' }) {
     const alertRef = useRef(null)
     useEffect(() => {
-        setTimeout(() => {
+        const time = setTimeout(() => {
             alertRef.current.remove()
         }, 2000)
+        return () => {
+            clearTimeout(time)
+        }
     }, [])
     return (
         <div className={`alert alert-${type} shadow-lg my-4`} ref={alertRef}>

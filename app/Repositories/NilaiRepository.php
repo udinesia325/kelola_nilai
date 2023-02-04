@@ -21,7 +21,7 @@ class NilaiRepository implements NilaiRepositoryInterface
             ->join("jenis_nilais as jn", "jn.id", "=", "nilais.nilai_id")
             ->join("siswas", "siswas.id", "=", "nilais.siswa_id")
             ->join("kelas", "kelas.id", "=", "siswas.kelas_id")
-            ->groupBy(["kelas.id", "nilais.mapel", DB::raw("MONTH(nilais.created_at)")])->get([
+            ->groupBy(["kelas.id","nilais.nilai_id", "nilais.mapel", DB::raw("DATE_FORMAT(nilais.created_at,'%Y-%m-%d')")])->get([
                 "mapel",
                 "kelas.id as kelas",
                 "jn.id as jenis",
@@ -30,6 +30,7 @@ class NilaiRepository implements NilaiRepositoryInterface
                 "nama_nilai",
                 DB::raw("DAYNAME(nilais.created_at) as hari")
             ]);
+        
         return $data;
     }
     public function showSavedNilai(array $input)

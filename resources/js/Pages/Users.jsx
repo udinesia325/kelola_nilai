@@ -58,7 +58,7 @@ export default function Users(props) {
             {progress &&
                 <progress className="progress progress-success w-56 block mb-4" value={progress.percentage} max="100"></progress>
             }
-            <div className="overflow-x-auto w-full">
+            <div className="overflow-x-auto w-full min-w-full max-w-md md:max-w-full ">
                 <table className="table table-zebra w-full">
 
                     <thead>

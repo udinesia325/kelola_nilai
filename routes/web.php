@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
 
     // rekapan nilai
     Route::get("/rekapan", [RekapanController::class, "index"])->name("rekapan");
+    Route::get("/rekapan/show", [RekapanController::class, "show"])->name("rekapan.show");
 });
 
 require __DIR__ . '/auth.php';

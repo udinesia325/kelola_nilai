@@ -14,6 +14,7 @@ use App\Models\Kelas;
 use App\Models\Nilai;
 use App\Models\Siswa;
 use App\Repositories\NilaiRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -42,7 +43,7 @@ class NilaiController extends Controller
         ];
         return Inertia::render("Nilai/Create", compact("data"));
     }
-    public function store(StoreNilaiRequest $storeNilaiRequest, NilaiServiceInterface $nilaiServiceInterface)
+    public function store(StoreNilaiRequest $storeNilaiRequest, NilaiServiceInterface $nilaiServiceInterface): RedirectResponse
     {
         $storeNilaiRequest->validated();
         return $nilaiServiceInterface->store($storeNilaiRequest->input("data_nilai"));

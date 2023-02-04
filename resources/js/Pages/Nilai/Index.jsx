@@ -1,5 +1,7 @@
 import Alert from '@/Components/Alert';
 import mapel from '@/constans/mapel';
+import formatDay from '@/helpers/formatDay';
+import formatTanggal from '@/helpers/formatTanggal';
 import Layout from '@/Layouts/Layout';
 import { router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
@@ -17,9 +19,7 @@ function Index(props) {
         "kelas": null,
         "jenis": null
     })
-    function formatDay(date) {
-        return new Date(date).toLocaleString('id', { weekday: 'long' })
-    }
+
     function submit(dataCard, event) {
         // atur body request berdasarkan bind data dari tombol
         setData({
@@ -46,7 +46,7 @@ function Index(props) {
         router.delete(route("nilai.delete"), { data: dataDelete })
         setModalDelete(false)
     }
-
+    console.log(nilai);
     return (
         <Layout>
             {props.flash.message ? <Alert>{props.flash.message}</Alert> : null}
@@ -110,24 +110,43 @@ function Index(props) {
                     </div>
                 </div>
             </div>
-            {/* card nilai */}
-            <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
-                {nilai.length == 0 && <h1 className='mx-auto text-3xl mt-4'>Data penilaian masih kosong</h1>}
-                {nilai.map((n, _i) => (
-                    <div key={_i} className="card w-64 max-w-xs bg-base-100 shadow-xl flex-auto">
-                        <div className="card-body">
-                            <h2 className="card-title"><span className='font-bold'> {n.nama_kelas} </span>{n.mapel}</h2>
-                            <p>Nilai : {n.nama_nilai}</p>
-                            <p className='text-slate-700'>Tanggal : {formatDay(n.created_at)} {n.created_at}</p>
-                            <div className="card-actions justify-end">
-                                <button className="btn btn-sm btn-error" onClick={deleteNilai.bind(this, n)}><i className="fa-solid fa-trash text-white"></i></button>
-                                <button className="btn btn-sm btn-primary" onClick={submit.bind(this, n)}><i className="fa-solid fa-eye"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+            {/* tabel nilai */}
+            {/* jika penilaian masih kosong */}
+            {nilai.length == 0 && (<h1 className='text-center font-bold text-2xl'>Data penilaian masih kosong !</h1>)}
+            <div className="overflow-x-auto mt-4 ">
+                <table className="table table-zebra table-compact w-full">
+                    <thead>
+                        {nilai.length != 0 &&
+                            <tr>
+                                <th>No</th>
+                                <th>Kelas</th>
+                                <th>Mapel</th>
+                                <th>Jenis Nilai</th>
+                                <th>Dibuat pada</th>
+                                <th>Aksi</th>
 
+                            </tr>
+                        }
+                    </thead>
+                    <tbody>
+                        {nilai.map((n, _i) => (
+                            <tr key={_i} className="hover">
+                                <th>{_i + 1}</th>
+                                <td>{n.nama_kelas}</td>
+                                <td>{n.mapel}</td>
+                                <td>{n.nama_nilai}</td>
+                                <td>{formatTanggal(n.created_at)}</td>
+                                <td>
+                                    <button className="btn btn-sm btn-error mr-4" onClick={deleteNilai.bind(this, n)}><i className="fa-solid fa-trash text-white"></i></button>
+                                    <button className="btn btn-sm btn-primary" onClick={submit.bind(this, n)}><i className="fa-solid fa-eye"></i></button>
+
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
+
         </Layout>
     )
 }

@@ -4,12 +4,14 @@ import React from 'react'
 function Index(props) {
     const { data } = props
     function formatMonth(date) {
-        return new Date(date).toLocaleString('id', { month:"long" })
+        const bulan = new Date(date).toLocaleString('id', { month: "long" })
+        const tahun = new Date(date).getFullYear()
+        return `${bulan} / ${tahun}`
     }
     return (
         <Layout>
-            <div className="overflow-x-auto">
-                <table className="table table-zebra w-full ">
+            <div className="overflow-x-auto min-w-full max-w-md md:max-w-full ">
+                <table className="table table-compact min-w-max w-full">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -28,8 +30,12 @@ function Index(props) {
                                 <td>{d.mapel}</td>
                                 <td>{formatMonth(d.created_at)}</td>
                                 <td>
-                                    <button className='btn btn-sm btn-success mr-3'>Unduh</button>
-                                    <button className='btn btn-sm btn-secondary'>Lihat</button>
+                                    <button className='btn btn-sm btn-success mr-3'><i className="fa-solid fa-download mr-3"></i>Unduh</button>
+                                    <a href={route("rekapan.show", {
+                                        nama_kelas: d.nama_kelas,
+                                        created_at: d.created_at,
+                                        mapel: d.mapel
+                                    })} className='btn btn-sm btn-secondary'><i className="fa-solid fa-eye mr-3"></i>Lihat</a>
                                 </td>
                             </tr>
                         ))}

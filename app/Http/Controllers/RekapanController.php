@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\NilaiRepositoryInterface;
 use App\Contracts\RekapanRepositoryInterface;
+use App\Http\Requests\ShowRekapanRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,5 +20,11 @@ class RekapanController extends Controller
         $data = $this->rekapanRepository->bulanan();
 
         return Inertia::render("Rekapan/Index", compact("data"));
+    }
+    public function show(ShowRekapanRequest $showRekapanRequest)
+    {
+        $showRekapanRequest->validated();
+        $data = $this->rekapanRepository->tampilPerbulan($showRekapanRequest->input());
+        return Inertia::render("Rekapan/Show",compact("data"));
     }
 }

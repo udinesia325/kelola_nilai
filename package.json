@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "daisyui": "^2.47.0"
+        "daisyui": "^2.47.0",
+        "react-export-table-to-excel": "^1.0.6"
     }
 }

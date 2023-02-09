@@ -1,6 +1,6 @@
 import NavLink from '@/Components/NavLink'
 import { Link, usePage } from '@inertiajs/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function Layout({ children }) {
     const { auth } = usePage().props
@@ -17,12 +17,10 @@ function Layout({ children }) {
                     <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                         <span><i className="fa-solid fa-chart-column mr-5"></i>Dashboard</span>
                     </NavLink>
-                    <NavLink href={route('users')} active={route().current('users')}>
-                        <span><i className="fa-solid fa-users mr-5"></i>Kelola User</span>
-                    </NavLink>
-                    <NavLink href={route('siswa')} active={route().current('siswa')}>
-                        <span><i className="fa-solid fa-users-gear mr-5"></i>Kelola Siswa</span>
-                    </NavLink>
+
+                    {/* jika admin maka tambahkan menu tambahan */}
+                    {auth.isAdmin && <AdminMenu />}
+
                     <NavLink href={route('nilai')} active={route().current('nilai')}>
                         <span><i className="fa-solid fa-book-open mr-5"></i>Kelola Nilai</span>
                     </NavLink>
@@ -50,3 +48,14 @@ function Layout({ children }) {
 }
 
 export default Layout
+
+const AdminMenu = () => (
+    <>
+        <NavLink href={route('users')} active={route().current('users')}>
+            <span><i className="fa-solid fa-users mr-5"></i>Kelola User</span>
+        </NavLink>
+        <NavLink href={route('siswa')} active={route().current('siswa')}>
+            <span><i className="fa-solid fa-users-gear mr-5"></i>Kelola Siswa</span>
+        </NavLink>
+    </>
+)

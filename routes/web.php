@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     //untuk siswa
     Route::get('/siswa', [SiswaController::class, "index"])->name("siswa");
     Route::post('/siswa/import', [SiswaController::class, "import"])->name("siswa.import");
+    Route::post('/siswa/store', [SiswaController::class, "store"])->name("siswa.store");
 
     // untuk nilai
     Route::get("/nilai", [NilaiController::class, "index"])->name("nilai");

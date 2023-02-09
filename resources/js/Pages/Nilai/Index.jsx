@@ -46,7 +46,7 @@ function Index(props) {
         router.delete(route("nilai.delete"), { data: dataDelete })
         setModalDelete(false)
     }
-    console.log(nilai);
+    // console.log(nilai);
     return (
         <Layout>
             {props.flash.message ? <Alert>{props.flash.message}</Alert> : null}

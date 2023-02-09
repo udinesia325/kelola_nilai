@@ -1,10 +1,11 @@
+import CreateSiswa from '@/Components/CreateSiswa';
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react';
-import React from 'react'
+import React, { useState } from 'react'
 
 function Siswa(props) {
     const { users, flash, siswa } = props
-
+    const [show, setShow] = useState(false)
     const { data, setData, post, progress, processing, } = useForm({
         file: null
     })
@@ -17,15 +18,15 @@ function Siswa(props) {
             <Head title="Dashboard" />
             {/* start modal */}
             {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
-
+            <label onClick={() => setShow(true)} className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
+            <CreateSiswa />
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             {flash.message ? <div className="alert alert-success shadow-lg mb-5">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{flash.message}</span>
                 </div>
-            </div> : <div className="modal">
+            </div> : <div className={`modal ${show ? "modal-open" : ""}`}>
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Masukkan File Excel</h3>
                     <div className="py-4">
@@ -35,7 +36,7 @@ function Siswa(props) {
                         </form>
                     </div>
                     <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn btn-sm">Tutup</label>
+                        <label className="btn btn-sm" onClick={() => setShow(false)}>Tutup</label>
                     </div>
                 </div>
             </div>}

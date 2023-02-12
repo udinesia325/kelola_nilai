@@ -25,6 +25,10 @@ class RekapanController extends Controller
     {
         $showRekapanRequest->validated();
         $data = $this->rekapanRepository->tampilPerbulan($showRekapanRequest->input());
-        return Inertia::render("Rekapan/Show",compact("data"));
+        return Inertia::render("Rekapan/Show", compact("data"));
+    }
+    public function mingguan()
+    {
+        return response()->json($this->rekapanRepository->diagramNiali());
     }
 }

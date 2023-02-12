@@ -3,8 +3,11 @@
 namespace App\Repositories;
 
 use App\Contracts\RekapanRepositoryInterface;
+use App\Models\Kelas;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Psy\Command\WhereamiCommand;
+
 
 class RekapanRepository implements RekapanRepositoryInterface
 {
@@ -30,6 +33,33 @@ class RekapanRepository implements RekapanRepositoryInterface
             ->where("n.mapel", $input["mapel"])
             ->where(DB::raw("DATE_FORMAT(n.created_at, '%Y-%m')"), date("Y-m", strtotime($input["created_at"])))
             ->get(["s.nama_siswa", "n.nilai", "n.mapel", "k.nama_kelas", "jn.nama_nilai", "n.created_at"]);
+        return $data;
+    }
+    public function diagramNiali(): array
+    {
+        $data = [];
+        $data["mingguan"] = DB::table("nilais", "n")
+            ->join("siswas as s", "s.id", "=", "n.siswa_id")
+            ->join("kelas as k", "k.id", "=", "s.kelas_id")
+            ->join("jenis_nilais as jn", "jn.id", "=", "n.nilai_id")
+            ->groupBy("jn.id")
+            ->groupBy(DB::raw('date(n.created_at)'))
+            ->orderBy('n.created_at')
+            ->whereBetween("n.created_at", [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->get(["jn.nama_nilai", DB::raw("count(distinct(n.user_id)) as total"), "n.created_at"]);
+
+        return $data;
+    }
+    public function dashboardAdmin(): array
+    {
+        $data = [];
+        $data["nilai_tersimpan"] = DB::table("nilais", "n")
+            ->join("siswas as s", "s.id", "=", "n.siswa_id")
+            ->join("kelas as k", "k.id", "=", "s.kelas_id")
+            ->groupBy(["mapel","k.id","nilai_id"])
+            ->get()->count();
+        $data["guru"] = User::all()->count();
+        $data["kelas"] = Kelas::all()->count();
         return $data;
     }
 }

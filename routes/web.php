@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapanController;
@@ -31,9 +32,7 @@ use Inertia\Inertia;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
     // untuk user
     Route::get("/users", [UserController::class, "index"])->name("users");

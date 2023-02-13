@@ -1,18 +1,26 @@
 import CreateSiswa from '@/Components/CreateSiswa';
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function Siswa(props) {
     const { users, flash, siswa } = props
     const [show, setShow] = useState(false)
-    const { data, setData, post, progress, processing, } = useForm({
+    const { data, setData, post, progress, processing, reset } = useForm({
         file: null
     })
     function submit(e) {
         e.preventDefault()
         post('/siswa/import')
     }
+    useEffect(() => {
+        if (flash.message) {
+            reset();
+            setShow(false)
+        }
+
+    }, [flash])
+
     return (
         <Layout>
             <Head title="Dashboard" />
@@ -26,7 +34,7 @@ function Siswa(props) {
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{flash.message}</span>
                 </div>
-            </div> : <div className={`modal ${show ? "modal-open" : ""}`}>
+            </div> : null}<div className={`modal ${show ? "modal-open" : ""}`}>
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Masukkan File Excel</h3>
                     <div className="py-4">
@@ -39,7 +47,7 @@ function Siswa(props) {
                         <label className="btn btn-sm" onClick={() => setShow(false)}>Tutup</label>
                     </div>
                 </div>
-            </div>}
+            </div>
             {/* end modal */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">

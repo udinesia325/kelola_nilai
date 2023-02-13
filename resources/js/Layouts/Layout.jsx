@@ -6,12 +6,9 @@ function Layout({ children }) {
     const { auth } = usePage().props
     return (
         <div className="flex flex-row min-h-screen bg-slate-100">
-            <div className="flex-initial w-56 bg-white flex flex-col gap-y-2">
+            <div className="flex-none w-[250px] w-56 bg-white flex flex-col gap-y-2">
                 <div className="w-full flex flex-row h-8 justify-center gap-x-4 items-center mt-3 ">
-                    <div className="w-9 h-9 rounded-full bg-slate-200 flex">
-                        <i className="fa-solid fa-user-tie m-auto text-2xl"></i>
-                    </div>
-                    <h1 className="font-semibold font-sans text-gray-600">{auth.user.name}</h1>
+                    <h1 className='text-2xl font-bold '>E - Nilai</h1>
                 </div>
                 <div className='flex flex-col gap-y-5 mt-16 px-7'>
                     <NavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -22,7 +19,7 @@ function Layout({ children }) {
                     {auth.isAdmin && <AdminMenu />}
 
                     <NavLink href={route('nilai')} active={route().current('nilai')}>
-                        <span><i className="fa-solid fa-book-open mr-5"></i>Kelola Nilai</span>
+                        <span><i className="fa-solid fa-book-open mr-5"></i>Penilaian</span>
                     </NavLink>
                     <NavLink href={route('rekapan')} active={route().current('rekapan')}>
                         <span><i className="fa-solid fa-book mr-5"></i>Rekapan Nilai</span>
@@ -32,9 +29,14 @@ function Layout({ children }) {
                     </Link>
                 </div>
             </div>
-            <div className="flex-auto pt-3 pl-4" >
-                <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="flex-auto" >
+                <div className="flex flex-col">
+                    <div className="w-full bg-sky-500 py-2">
+                        <h1 className="font-semibold font-sans text-white text-2xl uppercase ml-4">
+                            <i className="fa-solid fa-user-tie m-auto text-2xl mr-3"></i>
+                            {auth.user.name}</h1>
+                    </div>
+                    <div className="max-w-7xl sm:px-6 lg:px-8 mt-10">
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="p-6 text-gray-900">
                                 {children}

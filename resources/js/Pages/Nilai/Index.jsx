@@ -1,4 +1,5 @@
 import Alert from '@/Components/Alert';
+import CreateNilai from '@/Components/CreateNilai';
 import mapel from '@/constans/mapel';
 import formatDay from '@/helpers/formatDay';
 import formatTanggal from '@/helpers/formatTanggal';
@@ -51,10 +52,6 @@ function Index(props) {
         <Layout>
             {props.flash.message ? <Alert>{props.flash.message}</Alert> : null}
 
-            {/* The button to open modal */}
-            <label htmlFor="my-modal" className="btn btn-primary btn-sm"><i className="fa-regular fa-pen-to-square mr-4"></i>Buat</label>
-            {/* modal delete */}
-
             {/* Put this part before </body> tag */}
             <div className={`modal ${modalDelete ? "modal-open" : ""}`}>
                 <div className="modal-box">
@@ -67,49 +64,7 @@ function Index(props) {
                 </div>
             </div>
 
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Masukkan Kriteria Penilaian</h3>
-                    <form action={route("nilai.create")}>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Nama Mapel</span>
-                            </label>
-                            <input type="text" list='mapel' required name='mapel' className="input input-bordered w-full max-w-xs" />
-                            <datalist id="mapel">
-                                {mapel.map((m, _i) => (
-                                    <option key={_i} value={m} />
-                                ))}
-                            </datalist>
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label">
-                                    <span className="label-text">Kelas</span>
-                                </label>
-                                <select className="select select-bordered" name='kelas' defaultValue={kelas[0].id}>
-                                    {kelas.map((k, i) => (
-                                        <option key={i} value={k.id}>{k.nama_kelas}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-control w-full max-w-xs">
-                                <label className="label">
-                                    <span className="label-text">Jenis Nilai</span>
-                                </label>
-                                <select className="select select-bordered" name='jenis' defaultValue={jenis[0].id}>
-                                    {jenis.map((j, i) => (
-                                        <option key={i} value={j.id}>{j.nama_nilai}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                        <button className="btn-primary btn-sm px-4 my-3 rounded-md">Kirim</button>
-                    </form>
-                    <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn btn-outline btn-error btn-sm">Tutup</label>
-                    </div>
-                </div>
-            </div>
+            <CreateNilai />
             {/* tabel nilai */}
             {/* jika penilaian masih kosong */}
             {nilai.length == 0 && (<h1 className='text-center font-bold text-2xl'>Data penilaian masih kosong !</h1>)}

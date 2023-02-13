@@ -51,7 +51,7 @@ export default function Chartjs() {
             //looping tiap mingguan dan isi nilainya berdasarkan data mingguan dari database
             for (let j = 0; j < mingguan.length; j++) {
                 if (mingguan[j].hari == temp.name) {
-                    temp[mingguan[j].nama_nilai] = mingguan[j].total
+                    temp[mingguan[j].nama_nilai] += mingguan[j].total
                     temp.amt = mingguan[j].total
                 }
             }

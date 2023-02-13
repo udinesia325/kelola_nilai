@@ -2,17 +2,17 @@ import { useForm, usePage } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 
 export default function CreateSiswa() {
-    const {flash} = usePage().props
-   
+    const { flash } = usePage().props
+
     const [show, setShow] = useState(false)
     const [kelas, setKelas] = useState([])
     const handleShow = () => setShow(true)
     const handleHide = () => setShow(false)
-    useEffect(()=>{
-        if(flash.message){
+    useEffect(() => {
+        if (flash.message) {
             handleHide()
         }
-    },[flash])
+    }, [flash])
     // tambahkan kelas saat onmount
     useEffect(() => {
         const controller = new AbortController()
@@ -28,7 +28,6 @@ export default function CreateSiswa() {
         "nama_siswa": null,
         "kelas_id": null,
     })
-    console.log(data);
     // post("/siswa/store")
     useEffect(() => {
         if (kelas.length) {

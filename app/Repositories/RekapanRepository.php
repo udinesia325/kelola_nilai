@@ -42,11 +42,10 @@ class RekapanRepository implements RekapanRepositoryInterface
             ->join("siswas as s", "s.id", "=", "n.siswa_id")
             ->join("kelas as k", "k.id", "=", "s.kelas_id")
             ->join("jenis_nilais as jn", "jn.id", "=", "n.nilai_id")
-            ->groupBy("jn.id")
-            ->groupBy(DB::raw('date(n.created_at)'))
+            ->groupBy("mapel","kelas_id","nilai_id","user_id",DB::raw("DATE_FORMAT(n.created_at, '%M %Y'), DATE_FORMAT(n.created_at, '%d')"))
             ->orderBy('n.created_at')
             ->whereBetween("n.created_at", [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-            ->get(["jn.nama_nilai", DB::raw("count(distinct(n.user_id)) as total"), "n.created_at"]);
+            ->get(["jn.nama_nilai", DB::raw("count(distinct(nama_nilai)) as total"), "n.created_at"]);
 
         return $data;
     }

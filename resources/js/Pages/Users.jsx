@@ -1,4 +1,3 @@
-import Alert from '@/Components/Alert';
 import Layout from '@/Layouts/Layout';
 import { Head, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
@@ -52,12 +51,7 @@ export default function Users(props) {
                     </div>
                 </div>
             </div>
-            {flash.message && <Alert>{flash.message}</Alert>}
 
-            {/* end modal */}
-            {progress &&
-                <progress className="progress progress-success w-56 block mb-4" value={progress.percentage} max="100"></progress>
-            }
             <div className="overflow-x-auto w-full min-w-full max-w-md md:max-w-full ">
                 <table className="table table-zebra w-full">
 

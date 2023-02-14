@@ -1,12 +1,29 @@
 import NavLink from '@/Components/NavLink'
 import { Link, usePage } from '@inertiajs/react'
 import React, { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Layout({ children }) {
-    const { auth } = usePage().props
+    const { auth, flash } = usePage().props
+    useEffect(() => {
+        if (flash.message) {
+            toast(flash.message)
+        }
+    }, [flash])
     return (
         <div className="flex flex-row min-h-screen bg-slate-100">
-            <div className="flex-none w-[250px] w-56 bg-white flex flex-col gap-y-2">
+            <ToastContainer position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light" />
+            <div className="flex-none w-[250px] bg-white flex flex-col gap-y-2">
                 <div className="w-full flex flex-row h-8 justify-center gap-x-4 items-center mt-3 ">
                     <h1 className='text-2xl font-bold '>E - Nilai</h1>
                 </div>
@@ -58,6 +75,9 @@ const AdminMenu = () => (
         </NavLink>
         <NavLink href={route('siswa')} active={route().current('siswa')}>
             <span><i className="fa-solid fa-users-gear mr-5"></i>Kelola Siswa</span>
+        </NavLink>
+        <NavLink href={route('kelas')} active={route().current('kelas')}>
+            <span><i className="fa-solid fa-school mr-5"></i>Koridor Kelas</span>
         </NavLink>
     </>
 )

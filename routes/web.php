@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapanController;
@@ -56,6 +57,11 @@ Route::middleware('auth')->group(function () {
     // rekapan nilai
     Route::get("/rekapan", [RekapanController::class, "index"])->name("rekapan");
     Route::get("/rekapan/show", [RekapanController::class, "show"])->name("rekapan.show");
+
+    // kelas 
+    Route::get("/kelas", [KelasController::class, "index"])->name("kelas");
+    Route::post("/kelas", [KelasController::class, "store"])->name("kelas.store");
+    Route::post("/kelas/transfer", [KelasController::class, "transferKelas"])->name("kelas.transfer");
 });
 
 require __DIR__ . '/auth.php';

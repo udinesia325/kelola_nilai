@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class KelasController extends Controller
@@ -33,9 +34,11 @@ class KelasController extends Controller
     public function transferKelas(Request $request)
     {
         $request->validate([
-            "kelas_asal" => "required",
-            "kelas_tujuan" => "required",
+            "kelas_asal" => "required|numeric",
+            "kelas_tujuan" => "required|numeric",
         ]);
+
+        // dd($request->input());
         Siswa::where("kelas_id", $request->input("kelas_asal"))
             ->update(["kelas_id" => $request->input("kelas_tujuan")]);
         return to_route("kelas")->with("message", "Berhasil mentransfer semua siswa ke kelas tujuan !");

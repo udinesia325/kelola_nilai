@@ -45,7 +45,7 @@ function Show({ data, auth }) {
     const url = new URLSearchParams(window.location.search)
     // console.log(url.get("mapel"));
     const uniqueCol = new Array(...new Set(Object.keys(totalCol)));
-    console.log(Object.keys(sampel));
+    // console.log(Object.keys(sampel));
 
 
     // untuk export ke excel

@@ -1,4 +1,5 @@
 import CreateKelas from '@/Components/CreateKelas'
+import KosongkanKelas from '@/Components/KosongkanKelas'
 import TransferKelas from '@/Components/TransferKelas'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
@@ -10,6 +11,7 @@ export default function Index(props) {
             <div className="features mb-4 flex gap-x-4">
                 <CreateKelas />
                 <TransferKelas />
+                <KosongkanKelas />
             </div>
 
             <table className="table table-compact w-[500px]">

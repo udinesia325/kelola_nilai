@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/kelas", [KelasController::class, "index"])->name("kelas");
     Route::post("/kelas", [KelasController::class, "store"])->name("kelas.store");
     Route::post("/kelas/transfer", [KelasController::class, "transferKelas"])->name("kelas.transfer");
+    Route::post("/kelas/kosongkan", [KelasController::class, "kosongkan"])->name("kelas.kosongkan");
 });
 
 require __DIR__ . '/auth.php';

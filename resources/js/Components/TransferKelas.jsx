@@ -45,11 +45,11 @@ function TransferKelas() {
     return (
         <>
             {/* Put this part before </body> tag */}
-            <button className='btn btn-sm btn-info font-semibold text-white' onClick={handleShow}><i className="fa-solid fa-arrows-turn-to-dots mr-3"></i> Transfer Kelas</button>
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <button className='btn btn-sm btn-info font-semibold text-white' onClick={handleShow}><i className="fa-solid fa-arrows-turn-to-dots mr-3"></i> Transfer</button>
+
             <div className={`modal ${show ? "modal-open" : ""}`}>
                 <div className="modal-box relative">
-                    <label htmlFor="my-modal-3" onClick={handleHide} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={handleHide} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg">Transfer Semua siswa ke kelas tujuan</h3>
                     <p className="text-sm text-slate-700">fitur ini sangat cocok untuk menaikkan siswa</p>
                     <form onSubmit={handleSubmit} className='my-4 '>

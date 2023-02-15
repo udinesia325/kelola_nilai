@@ -43,4 +43,12 @@ class KelasController extends Controller
             ->update(["kelas_id" => $request->input("kelas_tujuan")]);
         return to_route("kelas")->with("message", "Berhasil mentransfer semua siswa ke kelas tujuan !");
     }
+    public function kosongkan(Request $request)
+    {
+        $request->validate([
+            "kelas_id" => "required|numeric"
+        ]);
+        Siswa::where("kelas_id", $request->input("kelas_id"))->delete();
+        return to_route("kelas")->with("message", "Kelas berhasil di kosongkan !");
+    }
 }

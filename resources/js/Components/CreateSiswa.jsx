@@ -42,7 +42,7 @@ export default function CreateSiswa() {
     return (
         <>
             {/* The button to open modal */}
-            <button className='btn btn-sm btn-info ml-3 text-white font-semibold' onClick={handleShow}><i className="fa-solid fa-user-plus mr-3"></i> Tambah</button>
+            <button className='btn btn-info ml-3 text-white font-semibold text-lg' onClick={handleShow}><i className="fa-solid fa-user-plus mr-3"></i> Tambah</button>
 
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="my-modal" className="modal-toggle" />

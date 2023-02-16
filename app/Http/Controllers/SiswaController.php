@@ -8,14 +8,18 @@ use App\Http\Resources\SiswaResource;
 use App\Imports\SiswaImport;
 use App\Models\Siswa;
 use App\Services\SiswaService;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $siswa = new SiswaResource(Siswa::with("kelas")->orderBy("nama_siswa", "asc")->paginate(50));
+        $kelas_id = $request->input("kelas_id");
+        $siswa = new SiswaResource(Siswa::with("kelas")->when($kelas_id,function(Builder $query,$kelas_id){
+            $query->where('kelas_id',$kelas_id);
+        })->orderBy("nama_siswa", "asc")->paginate(50));
         return Inertia::render("Siswa", compact("siswa"));
     }
     public function import(SiswaImportRequest $siswaImportRequest, SiswaService $siswaService)

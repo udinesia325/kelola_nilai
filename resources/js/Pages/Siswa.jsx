@@ -1,4 +1,5 @@
 import CreateSiswa from '@/Components/CreateSiswa';
+import FilterKelasSiswa from '@/Components/FilterKelasSiswa';
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react'
@@ -26,8 +27,12 @@ function Siswa(props) {
             <Head title="Dashboard" />
             {/* start modal */}
             {/* The button to open modal */}
-            <label onClick={() => setShow(true)} className="btn btn-sm btn-success mb-4 font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
-            <CreateSiswa />
+            <div className="flex gap-x-4 items-center mb-4">
+                <label onClick={() => setShow(true)} className="btn btn-success text-lg  font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
+                <CreateSiswa />
+                <FilterKelasSiswa />
+            </div>
+
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className={`modal ${show ? "modal-open" : ""}`}>
                 <div className="modal-box">
@@ -44,6 +49,7 @@ function Siswa(props) {
                 </div>
             </div>
             {/* end modal */}
+            {/* untuk filter berdasarkan kelas */}
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
 

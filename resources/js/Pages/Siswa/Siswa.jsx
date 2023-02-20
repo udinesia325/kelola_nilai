@@ -1,4 +1,5 @@
 import CreateSiswa from '@/Components/CreateSiswa';
+import EditSiswa from '@/Components/EditSiswa';
 import FilterKelasSiswa from '@/Components/FilterKelasSiswa';
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -30,6 +31,7 @@ function Siswa(props) {
             <div className="flex gap-x-4 items-center mb-4">
                 <label onClick={() => setShow(true)} className="btn btn-success text-lg  font-bold text-white"><i className="fa-solid fa-arrow-up-from-bracket mr-4"></i> Siswa</label>
                 <CreateSiswa />
+                <EditSiswa />
                 <FilterKelasSiswa />
             </div>
 

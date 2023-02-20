@@ -1,3 +1,5 @@
+import formatDay from '@/helpers/formatDay'
+import formatTanggal from '@/helpers/formatTanggal'
 import getDay from '@/helpers/getDay'
 import hexaGenerator from '@/helpers/hexaGenerator'
 import React, { useEffect, useState } from 'react'
@@ -7,7 +9,9 @@ export default function Chartjs() {
     const [jenis, setJenis] = useState([])
     const [mingguan, setMingguan] = useState([])
     const [dataChart, setDataChart] = useState([])
-    const namaHari = ["Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis"]
+    const namaHari = ["Senin", "Selasa", "Rabu", "Kamis", "Sabtu", "Minggu"]
+    // untuk tanggal awal dan akhir minggu
+    const [tanggal, setTanggal] = useState({})
     useEffect(() => {
         fetch(route("api.jenis"))
             .then(response => response.json())
@@ -21,9 +25,13 @@ export default function Chartjs() {
             })
         fetch(route("api.rekapan.mingguan"))
             .then(response => response.json())
-            .then(data => setMingguan([...data.mingguan.map(min => {
-                return { ...min, hari: getDay(min.created_at) }
-            })]))
+            .then(data => {
+                setMingguan([...data.mingguan.map(min => {
+                    return { ...min, hari: getDay(min.created_at) }
+                })])
+                setTanggal({ ...data.tanggal })
+            })
+
     }, [])
     useEffect(() => {
         // untuk membuat data chart
@@ -58,7 +66,7 @@ export default function Chartjs() {
             return temp
         })])
     }, [mingguan])
-
+    console.log(tanggal);
 
     // console.log("mingguan", mingguan);
     // console.log("data chart", dataChart);
@@ -74,6 +82,7 @@ export default function Chartjs() {
     return (
         <div className='mt-36'>
             <h1 className='text-3xl font-bold mb-3 block ml-16'>Penilaian seminggu terakhir</h1>
+            <p className='ml-16 mb-4'>{formatTanggal(tanggal.awal)} - {formatTanggal(tanggal.akhir)}</p>
             <LineChart width={600} height={250} data={dataChart}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />

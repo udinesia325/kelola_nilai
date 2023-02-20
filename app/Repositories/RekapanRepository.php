@@ -42,11 +42,14 @@ class RekapanRepository implements RekapanRepositoryInterface
             ->join("siswas as s", "s.id", "=", "n.siswa_id")
             ->join("kelas as k", "k.id", "=", "s.kelas_id")
             ->join("jenis_nilais as jn", "jn.id", "=", "n.nilai_id")
-            ->groupBy("mapel","kelas_id","nilai_id","user_id",DB::raw("DATE_FORMAT(n.created_at, '%M %Y'), DATE_FORMAT(n.created_at, '%d')"))
+            ->groupBy("mapel", "kelas_id", "nilai_id", "user_id", DB::raw("DATE_FORMAT(n.created_at, '%M %Y'), DATE_FORMAT(n.created_at, '%d')"))
             ->orderBy('n.created_at')
             ->whereBetween("n.created_at", [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
             ->get(["jn.nama_nilai", DB::raw("count(distinct(nama_nilai)) as total"), "n.created_at"]);
-
+        $data["tanggal"] = [
+            "awal" => Carbon::now()->startOfWeek()->format("Y-m-d"),
+            "akhir" => Carbon::now()->endOfWeek()->format("Y-m-d"),
+        ];
         return $data;
     }
     public function dashboardAdmin(): array
@@ -55,7 +58,7 @@ class RekapanRepository implements RekapanRepositoryInterface
         $data["nilai_tersimpan"] = DB::table("nilais", "n")
             ->join("siswas as s", "s.id", "=", "n.siswa_id")
             ->join("kelas as k", "k.id", "=", "s.kelas_id")
-            ->groupBy(["mapel","k.id","nilai_id"])
+            ->groupBy(["mapel", "k.id", "nilai_id"])
             ->get()->count();
         $data["guru"] = User::all()->count();
         $data["kelas"] = Kelas::all()->count();

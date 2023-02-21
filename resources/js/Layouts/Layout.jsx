@@ -54,7 +54,7 @@ function Layout({ children }) {
                             {auth.user.name}</h1>
                     </div>
                     <div className="max-w-7xl sm:px-6 lg:px-8 mt-10">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-36">
                             <div className="p-6 text-gray-900">
                                 {children}
                             </div>

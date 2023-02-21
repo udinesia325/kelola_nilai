@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("/kelas", [KelasController::class, "getAll"])->name("api.kelas");
 Route::get("/jenis", [JenisNilaiController::class, "show"])->name("api.jenis");
 Route::get("/rekapan/mingguan", [RekapanController::class, "mingguan"])->name("api.rekapan.mingguan");
+Route::get("/rekapan/bulanan", [RekapanController::class, "diagramBulanan"])->name("api.rekapan.bulanan");
 
 //  ini berisi data yang diperlukan saat ingin membuat penilaian
 Route::get("/nilai/create", function () {

@@ -29,6 +29,14 @@ class RekapanController extends Controller
     }
     public function mingguan()
     {
-        return response()->json($this->rekapanRepository->diagramNiali());
+        return response()->json($this->rekapanRepository->diagramMingguan());
+    }
+    public function bulanan(Request $request)
+    {
+        return response()->json($this->rekapanRepository->bulanan());
+    }
+    public function diagramBulanan(Request $request)
+    {
+        return $this->rekapanRepository->diagramBulanan($request->query("email"));
     }
 }

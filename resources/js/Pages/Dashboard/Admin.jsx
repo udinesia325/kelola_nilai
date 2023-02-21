@@ -1,4 +1,5 @@
-import Chartjs from '@/Components/ChartMIngguan'
+import ChartBulanan from '@/Components/ChartBulanan'
+import ChartMingguan from '@/Components/ChartMIngguan'
 import CreateNilai from '@/Components/CreateNilai'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
@@ -44,7 +45,10 @@ export default function Admin(props) {
                     </div>
                 </div>
             </div>
-            <Chartjs />
+            <div className="flex flex-col lg:flex-row gap-x-3 justify-center mt-16">
+                <ChartMingguan />
+                <ChartBulanan />
+            </div>
         </Layout>
     )
 }

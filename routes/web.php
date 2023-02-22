@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     // kelas 
     Route::get("/kelas", [KelasController::class, "index"])->name("kelas");
     Route::post("/kelas", [KelasController::class, "store"])->name("kelas.store");
+    Route::patch("/kelas", [KelasController::class, "update"])->name("kelas.update");
     Route::post("/kelas/transfer", [KelasController::class, "transferKelas"])->name("kelas.transfer");
     Route::post("/kelas/kosongkan", [KelasController::class, "kosongkan"])->name("kelas.kosongkan");
 });

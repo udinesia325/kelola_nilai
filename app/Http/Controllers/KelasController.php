@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class KelasController extends Controller
@@ -50,5 +49,12 @@ class KelasController extends Controller
         ]);
         Siswa::where("kelas_id", $request->input("kelas_id"))->delete();
         return to_route("kelas")->with("message", "Kelas berhasil di kosongkan !");
+    }
+    public function update(Request $request)
+    {
+        $id = $request->input("id");
+        $nama_kelas = $request->input("nama_kelas");
+        Kelas::where("id", $id)->update(["nama_kelas" => $nama_kelas]);
+        return to_route("kelas")->with("message", "Nama kelas berhasil di perbarui !");
     }
 }

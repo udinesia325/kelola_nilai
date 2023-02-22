@@ -82,8 +82,8 @@ export default function Chartjs() {
         <div>
             <h1 className='text-3xl font-bold mb-3 block ml-16'>Penilaian seminggu terakhir</h1>
             <p className='ml-16 mb-4'>{formatTanggal(tanggal.awal)} - {formatTanggal(tanggal.akhir)}</p>
-            <LineChart width={600} height={250} data={dataChart}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <LineChart width={600} height={350} data={dataChart}
+                margin={{  }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />

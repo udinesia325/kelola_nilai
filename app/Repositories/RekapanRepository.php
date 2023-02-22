@@ -72,8 +72,10 @@ class RekapanRepository implements RekapanRepositoryInterface
             ->groupBy("mapel", "kelas_id", "nilai_id", "user_id", DB::raw("DATE_FORMAT(n.created_at, '%M %Y'), DATE_FORMAT(n.created_at, '%d')"))
             ->orderBy('n.created_at')
             // jika bukan admin maka ambil data berdasarkan user tersebut
-            ->when($email != env("DEFAULT_ADMIN_EMAIL"), function ($query, $email) {
-                $query->where("email", $email);
+            ->when($email, function ($query, $email) {
+                if ($email != env("DEFAULT_ADMIN_EMAIL")) {
+                    $query->where("email", $email);
+                }
             })
             ->whereBetween("n.created_at", [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
             ->get(["jn.nama_nilai", DB::raw("count(distinct(nama_nilai)) as total"), "n.created_at"]);

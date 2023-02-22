@@ -25,8 +25,7 @@ function Show({ data, auth }) {
     for (const key in result) {
         finalResult.push(result[key])
     }
-    // console.log(data);
-    // console.log(finalResult);
+
     // untuk melakukan colspan secara dinamis tegantung banyak nya nilai yang di berikan
     const totalCol = {}
     // ambil sampel data pertama
@@ -45,7 +44,7 @@ function Show({ data, auth }) {
     const url = new URLSearchParams(window.location.search)
     // console.log(url.get("mapel"));
     const uniqueCol = new Array(...new Set(Object.keys(totalCol)));
-    // console.log(Object.keys(sampel));
+    // console.log(finalResult);
 
 
     // untuk export ke excel
@@ -55,18 +54,39 @@ function Show({ data, auth }) {
 
     const { onDownload } = useDownloadExcel({
         currentTableRef: tableRef.current,
-        filename: `Rekapan Nilai ${formatTanggal(url.get("created_at"))}`,
+        filename: `Rekapan Nilai ${auth.user.name} ${formatTanggal(url.get("created_at"))}`,
         sheet: "Rekapan Bulanan",
     })
+    function kalkulasiTotal(data) {
+        let key = {}
+
+        // generate key untuk total
+        Object.keys(data).forEach(k => {
+            if (k == "nama") return
+            const keysWithoutDate = k.split("|")[0]
+            if (key[keysWithoutDate] == undefined) {
+                key[k.split("|")[0]] = 0
+            }
+        })
+
+        // jumlahkan dalam setiap kalkulasi
+        Object.keys(data).forEach(k => {
+            if (k == "nama") return
+            const keysWithoutDate = k.split("|")[0]
+            key[keysWithoutDate] += data[k]
+        })
+        return key
+
+    }
     return (
         <Layout>
-            <div className="overflow-x-auto  min-w-full max-w-md md:max-w-full ">
+            <div className="overflow-x-auto  min-w-full max-w-md md:max-w-4xl ">
                 <div className="description mt-3">
-                        <h1>Mapel : {url.get("mapel")}</h1>
-                        <h1>Bulan : {new Date(url.get("created_at")).toLocaleDateString("id-ID", { month: "long" })}</h1>
-                        <h1>Kelas : {url.get("nama_kelas")}</h1>
-                    
-                        <button className='btn btn-sm btn-success mr-3 my-4 text-white font-semibold' onClick={onDownload}><i className="fa-solid fa-download mr-3"></i>Unduh</button>
+                    <h1>Mapel : {url.get("mapel")}</h1>
+                    <h1>Bulan : {new Date(url.get("created_at")).toLocaleDateString("id-ID", { month: "long" })}</h1>
+                    <h1>Kelas : {url.get("nama_kelas")}</h1>
+
+                    <button className='btn btn-sm btn-success mr-3 my-4 text-white font-semibold' onClick={onDownload}><i className="fa-solid fa-download mr-3"></i>Unduh</button>
                 </div>
 
                 <table className="table table-compact w-full" ref={tableRef}>
@@ -76,8 +96,9 @@ function Show({ data, auth }) {
                             <th>No</th>
                             <th>Nama</th>
                             {uniqueCol.map((col, _i) => (
-                                <th key={_i} colSpan={totalCol[col]}>{col}</th>
+                                <th key={_i} colSpan={totalCol[col]} className="border-l-2">{col}</th>
                             ))}
+                            <th className="border-l-2" colSpan={uniqueCol.length}>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +107,10 @@ function Show({ data, auth }) {
                             {Object.keys(sampel).filter(k => k != "nama").map((key, _i) => (
                                 <td key={_i} className="border-l-2">{formatTanggal(key.split("|")[1])}</td>
                             ))}
+                            {Object.keys(kalkulasiTotal(sampel)).map((s, _i) => (
+                                <td key={_i} className="border-l-2">{s}</td>
+
+                            ))}
                         </tr>
                         {
                             finalResult.map((r, _i) => (
@@ -93,6 +118,9 @@ function Show({ data, auth }) {
                                     <td>{_i + 1}</td>
                                     {Object.keys(r).map((k, _i) => (
                                         <td key={_i} className="border-l-2">{r[k]}</td>
+                                    ))}
+                                    {Object.values(kalkulasiTotal(r)).map((t) => (
+                                        <td>{t}</td>
                                     ))}
                                 </tr>
                             ))

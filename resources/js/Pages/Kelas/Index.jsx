@@ -2,12 +2,15 @@ import CreateKelas from '@/Components/CreateKelas'
 import KosongkanKelas from '@/Components/KosongkanKelas'
 import TransferKelas from '@/Components/TransferKelas'
 import Layout from '@/Layouts/Layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 export default function Index(props) {
     const { kelas } = props.data
     return (
         <Layout>
+            <Head title='Koridor Kelas' />
+
             <div className="features mb-4 flex gap-x-4">
                 <CreateKelas />
                 <TransferKelas />

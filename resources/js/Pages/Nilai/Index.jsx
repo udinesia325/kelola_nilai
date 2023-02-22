@@ -4,7 +4,7 @@ import mapel from '@/constans/mapel';
 import formatDay from '@/helpers/formatDay';
 import formatTanggal from '@/helpers/formatTanggal';
 import Layout from '@/Layouts/Layout';
-import { router, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 
@@ -50,6 +50,7 @@ function Index(props) {
     // console.log(nilai);
     return (
         <Layout>
+            <Head title='Penilaian' />
             {props.flash.message ? <Alert>{props.flash.message}</Alert> : null}
 
             {/* Put this part before </body> tag */}

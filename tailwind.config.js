@@ -12,12 +12,13 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                // sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
         },
     },
     daisyui: {
-        
+
     },
     plugins: [require('@tailwindcss/forms'), require("daisyui")],
 

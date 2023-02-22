@@ -1,4 +1,5 @@
 import Layout from '@/Layouts/Layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 function Index(props) {
@@ -10,6 +11,7 @@ function Index(props) {
     }
     return (
         <Layout>
+            <Head title='Rekapan' />
             <div className="overflow-x-auto min-w-full max-w-md md:max-w-full ">
                 <h1 className='text-2xl mb-5'>Rekapan bulanan penilaian siswa</h1>
                 <table className="table table-compact min-w-max w-full">

@@ -1,5 +1,5 @@
 import Layout from '@/Layouts/Layout'
-import { Link, useForm } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import React from 'react'
 
 function Create(props) {
@@ -34,7 +34,7 @@ function Create(props) {
 
   return (
     <Layout>
-
+      <Head title='Buat Penilaian' />
       <h1 className='font-semibold'>Mapel : {new URLSearchParams(window.location.search).get("mapel")}</h1>
       <form onSubmit={submit}>
         <div className="flex flex-row justify-end gap-2 mb-4">

@@ -2,6 +2,7 @@ import ChartBulanan from '@/Components/ChartBulanan'
 import ChartMingguan from '@/Components/ChartMIngguan'
 import CreateNilai from '@/Components/CreateNilai'
 import Layout from '@/Layouts/Layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 export default function Admin(props) {
@@ -9,6 +10,7 @@ export default function Admin(props) {
     // console.log(props);
     return (
         <Layout>
+            <Head title='Dashboard' />
             <CreateNilai />
             <div className="flex gap-x-2 gap-y-4 flex-wrap ">
                 <div className="flex-1 card w-full max-w-sm min-w-[200px] bg-base-100 shadow-xl">

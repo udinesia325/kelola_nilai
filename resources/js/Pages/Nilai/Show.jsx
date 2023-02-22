@@ -1,7 +1,7 @@
 import Alert from '@/Components/Alert';
 import NilaiBadge from '@/Components/NilaiBadge';
 import Layout from '@/Layouts/Layout';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import React from 'react'
 
 function Show(props) {
@@ -9,6 +9,7 @@ function Show(props) {
     const editUrl = new URL(window.location).href.replace("nilai/show", "nilai/edit")
     return (
         <Layout>
+            <Head title={`Penilaian ${data[0].kelas}`} />
             <div className="overflow-x-auto max-w-4xl">
                 <div className="flex flex-row justify-between ">
                     <div className="left">

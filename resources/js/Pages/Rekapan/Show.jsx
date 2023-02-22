@@ -1,6 +1,7 @@
 import TableHeaderExport from '@/Components/TableHeaderExport';
 import formatTanggal from '@/helpers/formatTanggal';
 import Layout from '@/Layouts/Layout'
+import { Head } from '@inertiajs/react';
 import React, { useRef } from 'react'
 import { useDownloadExcel } from 'react-export-table-to-excel';
 
@@ -80,6 +81,7 @@ function Show({ data, auth }) {
     }
     return (
         <Layout>
+            <Head title='Rekapan Bulanan' />
             <div className="overflow-x-auto  min-w-full max-w-md md:max-w-4xl ">
                 <div className="description mt-3">
                     <h1>Mapel : {url.get("mapel")}</h1>

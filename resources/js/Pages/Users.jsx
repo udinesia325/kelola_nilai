@@ -28,7 +28,7 @@ export default function Users(props) {
     return (
         <Layout>
 
-            <Head title="Dashboard" />
+            <Head title="Kelola User" />
 
             {/* start modal */}
             {/* The button to open modal */}

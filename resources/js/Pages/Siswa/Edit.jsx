@@ -1,5 +1,5 @@
 import Layout from '@/Layouts/Layout';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import React from 'react'
 
 function Edit(props) {
@@ -34,6 +34,7 @@ function Edit(props) {
     }
     return (
         <Layout>
+            <Head title='Edit  Siswa' />
             <div className="overflow-x-auto">
                 <button className='btn btn-sm btn-success font-bold text-white mb-5' onClick={handleSubmit}>  <i className="fa-solid fa-floppy-disk mr-3"></i>Simpan</button>
                 <table className="table table-zebra w-full">

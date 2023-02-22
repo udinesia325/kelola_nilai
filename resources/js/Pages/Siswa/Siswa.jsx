@@ -25,7 +25,7 @@ function Siswa(props) {
 
     return (
         <Layout>
-            <Head title="Dashboard" />
+            <Head title="Kelola Siswa" />
             {/* start modal */}
             {/* The button to open modal */}
             <div className="flex gap-x-4 items-center mb-4">

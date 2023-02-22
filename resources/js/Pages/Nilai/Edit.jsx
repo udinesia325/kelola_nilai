@@ -1,12 +1,12 @@
 import Alert from '@/Components/Alert';
 import Layout from '@/Layouts/Layout';
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import React from 'react'
 
 function Show(props) {
     const { auth, siswa, flash } = props
     const showUrl = new URL(window.location).href.replace("nilai/edit", "nilai/show")
-    
+
     const { data, setData, put } = useForm({
         "data_nilai": [...siswa.map(s => {
             return {
@@ -33,6 +33,7 @@ function Show(props) {
     }
     return (
         <Layout>
+            <Head title='Edit Penilaian' />
             <div className="overflow-x-auto">
                 <form onSubmit={submit}>
                     <div className="flex flex-row justify-between w-full max-w-4xl">

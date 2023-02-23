@@ -73,7 +73,7 @@ class RekapanRepository implements RekapanRepositoryInterface
             ->orderBy('n.created_at')
             // jika bukan admin maka ambil data berdasarkan user tersebut
             ->when($email, function ($query, $email) {
-                if ($email != env("DEFAULT_ADMIN_EMAIL")) {
+                if ($email != config("auth.default_admin.email")) {
                     $query->where("email", $email);
                 }
             })

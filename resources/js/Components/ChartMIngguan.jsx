@@ -79,7 +79,7 @@ export default function Chartjs() {
         })])
     }
     return (
-        <div>
+        <div className='flex-1'>
             <h1 className='text-3xl font-bold mb-3 block ml-16'>Penilaian seminggu terakhir</h1>
             <p className='ml-16 mb-4'>{formatTanggal(tanggal.awal)} - {formatTanggal(tanggal.akhir)}</p>
             <LineChart width={600} height={350} data={dataChart}

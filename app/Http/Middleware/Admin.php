@@ -16,7 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->email != env("DEFAULT_ADMIN_EMAIL")){
+        if ($request->user()->email != config("auth.default_admin.email")) {
             return redirect(route("dashboard"));
         }
         return $next($request);

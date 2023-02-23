@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         \App\Models\User::create([
-            'name' => env('DEFAULT_ADMIN_USERNAME'),
-            'email' => env("DEFAULT_ADMIN_EMAIL"),
+            'name' => config("auth.default_admin.username"),
+            'email' => config("auth.default_admin.email"),
             'email_verified_at' => now(),
-            'password' => Hash::make(env("DEFAULT_ADMIN_PASSWORD")) , // password
+            'password' => Hash::make(config("auth.default_admin.password")) , // password
             'remember_token' => Str::random(10),
         ]);
         collect([

@@ -22,7 +22,7 @@ class DashboardController extends Controller
     }
     public function __invoke(Request $request)
     {
-        if ($request->user()->email == env("DEFAULT_ADMIN_EMAIL")) {
+        if ($request->user()->email == config("auth.default_admin.email")) {
             return Inertia::render("Dashboard/Admin", $this->rekapanRepository->dashboardAdmin());
         }
         return Inertia::render("Dashboard/User");

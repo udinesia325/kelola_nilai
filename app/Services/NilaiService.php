@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Contracts\NilaiRepositoryInterface;
 use App\Contracts\NilaiServiceInterface;
-use App\Http\Requests\StoreNilaiRequest;
-use App\Jobs\StoreNilaiJob;
 use App\Models\Nilai;
 
 class NilaiService implements NilaiServiceInterface

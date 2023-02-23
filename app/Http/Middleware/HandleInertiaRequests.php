@@ -33,7 +33,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'isAdmin' => $request->user() &&  $request->user()->email == env("DEFAULT_ADMIN_EMAIL")
+                'isAdmin' => $request->user() &&  $request->user()->email == config("auth.default_admin.email")
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

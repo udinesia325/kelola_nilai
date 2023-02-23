@@ -47,7 +47,7 @@ export default function Admin(props) {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col lg:flex-row gap-x-3 justify-center mt-16">
+            <div className="flex flex-col xl:flex-row justify-center gap-y-4 mt-16">
                 <ChartMingguan />
                 <ChartBulanan />
             </div>

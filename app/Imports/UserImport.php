@@ -25,7 +25,7 @@ class UserImport implements ToModel, WithHeadingRow
         // dd($row);
         // jika kredensial user sama dengan yang ada di env maka jangan di update
         try {
-            if ($row["email"] == env("DEFAULT_ADMIN_EMAIL")) {
+            if ($row["email"] == config("auth.default_admin.email")) {
                 return;
             }
             return User::updateOrCreate(["email" => $row["email"]], [

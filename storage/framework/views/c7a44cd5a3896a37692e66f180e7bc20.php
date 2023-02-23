@@ -24,4 +24,4 @@
 </body>
 
 </html>
-<?php /**PATH C:\Users\SERVERSMK\Documents\projek kelola nilai\kelola_nilai\resources\views/app.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\SERVERSMK\Documents\projek kelola nilai\kelola_nilai\resources\views\app.blade.php ENDPATH**/ ?>

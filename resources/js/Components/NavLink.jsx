@@ -1,18 +1,19 @@
 import { Link } from '@inertiajs/react';
 
-export default function NavLink({ href, active, children}) {
+export default function NavLink({ href, active, icon, text, children }) {
     return (
         <Link
-        href={href}
-        
-        className={
-            active
-                ? 'inline-flex items-center  pt-1 border-b-2 border-sky-600 text-md  pb-3   font-bold leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
-                : 'inline-flex items-center  pt-1 border-b-2 border-transparent text-md pb-3  font-bold leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'
-        }
- 
-    >
-        {children}
-    </Link>
+            href={href}
+
+            className={
+                active
+                    ? 'inline-flex items-center  py-3 transition duration-150 ease-in-out font-semibold bg-sky-100 pl-4 text-sky-600 '
+                    : 'inline-flex items-center  py-3 transition duration-150 ease-in-out hover:bg-gray-50 pl-4 '
+            }
+
+        >
+            <i className={`fa-solid ${icon} mr-5`}></i><span>{text}</span>
+            {children}
+        </Link>
     );
 }

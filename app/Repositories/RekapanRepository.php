@@ -57,7 +57,7 @@ class RekapanRepository implements RekapanRepositoryInterface
     {
         $data = [];
         $data["nilai_tersimpan"] = $this->baseTable()
-            ->groupBy(["mapel", "k.id", "nilai_id"])
+            ->groupBy(["mapel", "nilai_id","user_id",DB::raw("day(n.created_at)")])
             ->get()->count();
         $data["guru"] = User::all()->count();
         $data["kelas"] = Kelas::all()->count();

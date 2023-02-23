@@ -40,8 +40,14 @@ function Siswa(props) {
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Masukkan File Excel</h3>
                     <div className="py-4">
-                        <form className='my-8 flex flex-row justify-center items-center gap-2' onSubmit={submit}>
-                            <input type="file" accept='xls, xlsx' onChange={e => setData('file', e.target.files[0])} className="file-input file-input-bordered file-input-success file-input-sm w-full max-w-xs" />
+                        <form className='my-8 flex flex-col gap-2' onSubmit={submit}>
+                            <div className="form-control w-full max-w-xs">
+                                <input type="file" accept='xls, xlsx' onChange={e => setData('file', e.target.files[0])} className="file-input file-input-bordered file-input-success file-input-sm w-full max-w-xs" />
+                                <label className="label">
+                                    <span className="label-text">Tidak punya sample data ?</span>
+                                    <span className="label-text-alt"><a href="/sampel/data_siswa.xlsx" download className='text-sky-800'>Unduh disini</a></span>
+                                </label>
+                            </div>
                             <button className="btn btn-sm btn-success w-[75px] text-white font-bold" disabled={processing} type='submit' htmlFor="my-modal">Import</button>
                         </form>
                     </div>

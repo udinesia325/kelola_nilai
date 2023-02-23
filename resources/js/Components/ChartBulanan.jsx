@@ -59,7 +59,7 @@ export default function ChartBulanan() {
     if (dataChart.length == 0) return "..."
 
     return (
-        <div className='w-full max-w-[600px] h-[350px]'>
+        <div className='w-full max-w-[700px] h-[350px]'>
             <h1 className='text-3xl font-bold mb-3 block ml-16'>Penilaian Bulan ini</h1>
             <p className='ml-16 mb-4'>{formatTanggal(tanggal.awal)} - {formatTanggal(tanggal.akhir)}</p>
             <ResponsiveContainer width="100%" height="100%">

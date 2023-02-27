@@ -1,5 +1,6 @@
 import Footer from '@/Components/Footer';
 import NavLink from '@/Components/NavLink'
+import formatTanggal from '@/helpers/formatTanggal';
 import { Link, usePage } from '@inertiajs/react'
 import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
@@ -42,10 +43,12 @@ function Layout({ children }) {
                 </div>
                 <div className="flex-auto" >
                     <div className="flex flex-col">
-                        <div className="w-full bg-sky-500 py-2">
-                            <h1 className="font-semibold font-sans text-white text-2xl uppercase ml-4">
+                        <div className="w-full bg-sky-500 py-2 flex justify-between items-center">
+                            <h1 className="font-semibold font-sans text-white text-xl uppercase ml-4">
                                 <i className="fa-solid fa-user-tie m-auto text-2xl mr-3"></i>
                                 {auth.user.name}</h1>
+                                <span className='text-white float-right text-sm mr-3'>  {formatTanggal(new Date())}</span>
+                          
                         </div>
                         <div className="max-w-7xl sm:px-6 lg:px-8 mt-10 mb-3">
                             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg pb-36">
